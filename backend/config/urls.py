@@ -4,7 +4,6 @@ from django.contrib import admin
 from django.urls import include, path
 from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView
 
-
 from .routers import router
 
 urlpatterns = [
@@ -19,5 +18,5 @@ if settings.DEBUG:
     import debug_toolbar
 
     urlpatterns = [
-        path("api/__debug__/", include(debug_toolbar.urls)),
-    ] + urlpatterns
+                      path("api/__debug__/", include(debug_toolbar.urls)),
+                  ] + urlpatterns

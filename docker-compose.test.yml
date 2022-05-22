@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: ./backend
-      cache_from: ["${CI_REGISTRY_IMAGE}/backend:${CI_COMMIT_REF_NAME:-latest}"]
+      cache_from: [ "${CI_REGISTRY_IMAGE}/backend:${CI_COMMIT_REF_NAME:-latest}" ]
       args:
         POETRY_PARAMS: "--no-dev"
     entrypoint: sh wait-for db:5432 -- ./entrypoint.test.sh

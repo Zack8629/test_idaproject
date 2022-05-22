@@ -8,7 +8,7 @@ services:
   - docker:19.03.1-dind
 
 .before_script_docker_login: &before_script_docker_login
-  echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
+                               echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin $CI_REGISTRY
 
 before_script:
   - *before_script_docker_login

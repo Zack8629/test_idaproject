@@ -12,9 +12,9 @@ services:
     depends_on:
       - db
     ports:
-    - 8000:8000
+      - '8000:8000'
 
   db:
     restart: unless-stopped
     ports:
-      - 15202:5432
+      - '15202:5432'
