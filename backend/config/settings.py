@@ -2,6 +2,7 @@ import os
 import sys
 import unittest
 
+import django_filters.rest_framework
 import faker.config
 from cachecontrol.caches import redis_cache
 from django.utils.translation import gettext_lazy as _
@@ -134,4 +135,7 @@ SITE_ID = 1
 # REST
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
 }
