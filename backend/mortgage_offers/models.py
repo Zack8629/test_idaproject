@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Offer(models.Model):
+    payment = models.IntegerField(verbose_name='Платеж в месяц', null=True, blank=True)
     bank_name = models.CharField(max_length=128, verbose_name='Наименование банка')
     term_min = models.IntegerField(verbose_name='Срок ипотеки, ОТ')
     term_max = models.IntegerField(verbose_name='Срок ипотеки, ДО')
