@@ -17,3 +17,26 @@ class Offer(models.Model):
     class Meta:
         verbose_name = "Предложение"
         verbose_name_plural = "Предложения"
+
+    def calc_payment(self, price: int, deposit: int, term: int):
+        monthly_rate = self.rate_min / 12 / 100
+
+        try:
+            price = int(price)
+            deposit = int(deposit)
+            term = int(term)
+
+        except ValueError as e:
+            print(f'ValueError calc_payment -> {e}')
+
+        except Exception as e:
+            print(f'Exception calc_payment -> {e}')
+
+        else:
+            credit_amount = price * (1 - deposit / 100)
+            term_in_months = term * 12
+            total_rate = (1 + monthly_rate) ** term_in_months
+
+            payment = credit_amount * monthly_rate * total_rate / (total_rate - 1) + 1
+
+            return int(payment)
