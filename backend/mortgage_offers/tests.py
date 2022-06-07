@@ -63,7 +63,7 @@ def remove_mortgage_offer(id_offer):
 def filters():
     import requests
 
-    url = "http://localhost:8000/api/offer/?rate_min=&rate_max=&payment_min=1000000&payment_max=10000000&order=-rate&price=10000000&deposit=10&term=20"
+    url = "http://localhost:8000/api/offer/?price=10000000&deposit=10&term=20"
 
     payload = {}
     headers = {}
