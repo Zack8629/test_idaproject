@@ -27,10 +27,13 @@ class Offer(models.Model):
             term = int(term)
 
         except ValueError as e:
-            print(f'ValueError calc_payment -> {e}')
+            print(f'calc_payment > ValueError -> {e}')
+
+        except TypeError as e:
+            print(f'calc_payment > TypeError -> {e}')
 
         except Exception as e:
-            print(f'Exception calc_payment -> {e}')
+            print(f'calc_payment > Exception -> {e}')
 
         else:
             credit_amount = price * (1 - deposit / 100)

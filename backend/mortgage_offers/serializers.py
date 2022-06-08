@@ -15,18 +15,20 @@ class OffersModelSerializer(serializers.ModelSerializer):
                 term = int(params.get('term'))
 
             except ValueError as e:
-                print(f'ValueError > serializers > to_representation -> {e}')
+                print(f'to_representation > ValueError -> {e}')
+
+            except TypeError as e:
+                print(f'to_representation > TypeError -> {e}')
 
             except Exception as e:
-                print(f'Exception > serializers > to_representation -> {e}')
+                print(f'to_representation > Exception -> {e}')
 
             else:
                 payment = obj.calc_payment(price, deposit, term)
                 representation['payment'] = payment
 
         if representation['payment'] is None:
-            # representation.pop('payment')
-            representation['payment'] = 'None Type'
+            representation.pop('payment')
         return representation
 
     class Meta:
