@@ -15,22 +15,30 @@ class OffersViewSet(ModelViewSet):
         queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
         params = request.query_params
+        ordering = params.get('order')
 
         if page is not None:
             serializer = self.get_serializer(page, many=True, context={'params': params})
-            return self.get_paginated_response(serializer.data)
+            if 'payment' in ordering:
+                return self.sort_payment(ordering, serializer)
+            else:
+                return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True, context={'params': params})
 
-        # order = params.get('order')
-        # if order:
-        #     if order == '-payment':
-        #         sorted_representation = sorted(serializer.data, key=lambda d: d.get('payment'),
-        #                                        reverse=True)
-        #         return Response(sorted_representation)
-        #     elif order == 'payment':
-        #         sorted_representation = sorted(serializer.data, key=lambda d: d.get('payment'),
-        #                                        reverse=True)
-        #         return Response(sorted_representation)
+        if 'payment' in ordering:
+            return self.sort_payment(ordering, serializer)
+        else:
+            return Response(serializer.data)
 
-        return Response(serializer.data)
+    @staticmethod
+    def sort_payment(ordering, serializer):
+        if ordering == '-payment':
+            sorted_representation = sorted(serializer.data, key=lambda d: d.get('payment'),
+                                           reverse=True)
+            return Response(sorted_representation)
+
+        elif ordering == 'payment':
+            sorted_representation = sorted(serializer.data, key=lambda d: d.get('payment'),
+                                           reverse=False)
+            return Response(sorted_representation)

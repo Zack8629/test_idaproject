@@ -8,7 +8,7 @@ class OffersModelSerializer(serializers.ModelSerializer):
         representation = super().to_representation(obj)
         params = self.context.get('params')
 
-        if params:
+        if 'price' and 'deposit' and 'term' in params:
             try:
                 price = int(params.get('price'))
                 deposit = int(params.get('deposit'))
@@ -28,7 +28,7 @@ class OffersModelSerializer(serializers.ModelSerializer):
                 representation['payment'] = payment
 
         if representation['payment'] is None:
-            representation.pop('payment')
+            representation['payment'] = 0
         return representation
 
     class Meta:
