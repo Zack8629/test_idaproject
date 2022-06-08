@@ -19,17 +19,10 @@ class OffersViewSet(ModelViewSet):
 
         if page is not None:
             serializer = self.get_serializer(page, many=True, context={'params': params})
-            if 'payment' in ordering:
-                return self.sort_payment(ordering, serializer)
-            else:
-                return self.get_paginated_response(serializer.data)
+            return self.sort_payment(ordering, serializer)
 
         serializer = self.get_serializer(queryset, many=True, context={'params': params})
-
-        if 'payment' in ordering:
-            return self.sort_payment(ordering, serializer)
-        else:
-            return Response(serializer.data)
+        return self.sort_payment(ordering, serializer)
 
     @staticmethod
     def sort_payment(ordering, serializer):
@@ -42,3 +35,6 @@ class OffersViewSet(ModelViewSet):
             sorted_representation = sorted(serializer.data, key=lambda d: d.get('payment'),
                                            reverse=False)
             return Response(sorted_representation)
+
+        else:
+            return Response(serializer.data)

@@ -8,7 +8,7 @@ class OffersModelSerializer(serializers.ModelSerializer):
         representation = super().to_representation(obj)
         params = self.context.get('params')
 
-        if 'price' and 'deposit' and 'term' in params:
+        if params:
             try:
                 price = int(params.get('price'))
                 deposit = int(params.get('deposit'))
